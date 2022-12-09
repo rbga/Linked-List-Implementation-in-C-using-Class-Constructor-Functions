@@ -107,16 +107,16 @@ void Remove(LinkNode *& root, int val)                //Delete function Declarat
     LinkNode * temp = root;                           //Create Temp List
     LinkNode * past = root;                           //Create Past List
     
-    for (int i = 0; i < val; i++)
+    for (int i = 0; i < val; i++)                     //From 0 to val
     {
-        if (i == 0 && val == 1)
+        if (i == 0 && val == 1)                       //At 0th iteration and val == 1
         {
-            root = root -> next;
-            free(temp);
+            root = root -> next;                      //Next
+            free(temp);                               //Delete
         }
         else
         {
-            if (i == val - 1 && temp)
+            if (i == val - 1 && temp)                 
             {
                 past -> next = temp -> next;
                 free(temp);
