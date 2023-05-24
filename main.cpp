@@ -120,45 +120,32 @@ void display(LinkNode *& root)                            //Display Entire List 
 }
 
 ///////////////////////////////////////////////////////////////////////////
-void Remove(LinkNode *& root, int val) {
-  // `temp` is a pointer to the current node in the linked list.
-  // `past` is a pointer to the previous node in the linked list.
 
-  // Iterate from 0 to `val`.
-  for (int i = 0; i < val; i++) {
-      
-    // If `i` is 0 and `val` is 1, then the current node is the root of the linked list.
-    if (i == 0 && val == 1) {
-      
-        // Set the root of the linked list to the next node.
-      root = root->next;
-      
-        // Free the memory allocated to the current node.
-      free(temp);
-    } 
-      else {
-      
-          // If `i` is equal to `val` - 1 and the current node is not null, then the current node is the node to be removed.
-      if (i == val - 1 && temp) {
-        
-          // Set the next node of the previous node to the next node of the current node.
-        past->next = temp->next;
-        
-          // Free the memory allocated to the current node.
-        free(temp);
+void Remove(LinkNode *& root, int val)                                        // `temp` is a pointer to the current node in the linked list.
+                                                                              // `past` is a pointer to the previous node in the linked list.
+{
+  for (int i = 0; i < val; i++)                                               // Iterate from 0 to `val`.
+  {
+    if (i == 0 && val == 1)                                                   // If `i` is 0 and `val` is 1, then the current node is the root of the linked list.
+    {
+      root = root->next;                                                      // Set the root of the linked list to the next node.
+      free(temp);                                                             // Free the memory allocated to the current node.
+    }
+    else 
+    {
+      if (i == val - 1 && temp)                                               // If `i` is equal to `val` - 1 and the current node is not null, then the current node is the node to be removed.
+      {
+        past->next = temp->next;                                              // Set the next node of the previous node to the next node of the current node.
+        free(temp);                                                           // Free the memory allocated to the current node.
       } 
-          else {
-        
-              // Set the previous node to the current node.
-        past = temp;
-        
-              // If the previous node is null, then we have reached the end of the linked list.
-        if (past == NULL) {
+      else 
+      {
+        past = temp;                                                          // Set the previous node to the current node.
+        if (past == NULL)                                                     // If the previous node is null, then we have reached the end of the linked list. 
+        {
           break;
         }
-        
-              // Move the current node to the next node.
-        temp = temp->next;
+        temp = temp->next;                                                    // Move the current node to the next node.
       }
     }
   }
@@ -166,109 +153,72 @@ void Remove(LinkNode *& root, int val) {
 
 ///////////////////////////////////////////////////////////////////////////
 
-void RemoveSpecific(LinkNode *& root, int val) {
-  // `temp` is a pointer to the current node in the linked list.
-  // `past` is a pointer to the previous node in the linked list.
-
-  // If the current node is not null and the key of the current node is equal to `val`, then the current node is the node to be removed.
-  if (temp != NULL && temp->key == val) {
-
-      // Set the root of the linked list to the next node.
-    root = temp->next;
-   
-      // Free the memory allocated to the current node.
-    delete temp;
-   
-      // Return from the function.
-    return;
+void RemoveSpecific(LinkNode *& root, int val) 
+{
+  if (temp != NULL && temp->key == val)                             // If the current node is not null and the key of the current node is equal to `val`, then the current node is the node to be removed.
+  {
+    root = temp->next;                                              // Set the root of the linked list to the next node. 
+    delete temp;                                                    // Free the memory allocated to the current node.
+    return;                                                         // Return from the function.
   }
 
-  // Otherwise, iterate through the linked list until the current node is not null and the key of the current node is not equal to `val`.
-  while (temp != NULL && temp->key != val) {
-    
-      // Set the previous node to the current node.
-    past = temp;
-   
-      // Move the current node to the next node.
-    temp = temp->next;
+  while (temp != NULL && temp->key != val)                          // Otherwise, iterate through the linked list until the current node is not null and the key of the current node is not equal to `val`.
+  {
+    past = temp;                                                    // Set the previous node to the current node.
+    temp = temp->next;                                              // Move the current node to the next node.
   }
 
-  // If the current node is null, then the node to be removed was not found.
-  if (temp == NULL) {
-    
-      // Return from the function.
-    return;
+  if (temp == NULL)                                                 // If the current node is null, then the node to be removed was not found.
+  {
+    return;                                                         // Return from the function.
   }
 
-  // Set the next node of the previous node to the next node of the current node.
-  past->next = temp->next;
-  
-    // Free the memory allocated to the current node.
-  delete temp;
+  past->next = temp->next;                                          // Set the next node of the previous node to the next node of the current node.
+  delete temp;                                                      // Free the memory allocated to the current node.
 }
 
 ///////////////////////////////////////////////////////////////////////////
 
-int ListLength(LinkNode *& root) {
-  // If the root of the linked list is null, then the linked list is empty.
-  if (root == NULL) {
-    // Return 0.
-    return 0;
+int ListLength(LinkNode *& root) 
+{
+  if (root == NULL)                         // If the root of the linked list is null, then the linked list is empty.
+  {
+    return 0;                               // Return 0.
   }
 
-  // Otherwise, recursively call the `ListLength` function on the next node in the linked list.
-  // Add 1 to the return value of the recursive call.
-  return (1 + ListLength(root->next));
+  return (1 + ListLength(root->next));      // Otherwise, recursively call the `ListLength` function on the next node in the linked list.  Add 1 to the return value of the recursive call.
 }
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-int main() {
-  // Create a linked list with 10 nodes.
-  LinkNode * root = NULL;
-  for (int i = 0; i < 10; i++) {
+int main() 
+{
+  LinkNode * root = NULL;                           // Create a linked list with 10 nodes.
+  for (int i = 0; i < 10; i++) 
+  {
     RootIns(root, i);
   }
 
-  // Print the contents of the linked list.
-  display(root);
-
-  // Insert two more nodes at the end of the linked list.
-  for (int j = i; j < (i+2); j++) {
+  display(root);                                    // Print the contents of the linked list.
+ 
+  for (int j = i; j < (i+2); j++)                   // Insert two more nodes at the end of the linked list.
+  {
     EndIns(root, j);
   }
 
-  // Print the contents of the linked list.
-  display(root);
-
-  // Insert a node at the fifth position.
-  SpecificIns(root, 5, 12);
-
-  // Print the contents of the linked list.
-  display(root);
-
-  // Insert a node at the twelfth position.
-  SpecificIns(root, 12, 13);
-
-  // Print the contents of the linked list.
-  display(root);
-
-  // Remove the third node.
-  Remove(root, 3);
-
-  // Print the contents of the linked list.
-  display(root);
-
-  // Remove the thirteenth node.
-  RemoveSpecific(root, 13);
-
-  // Print the contents of the linked list.
-  display(root);
-
-  // Print the size of the linked list.
-  cout << "Size = " << ListLength(root);
+  display(root);                                    // Print the contents of the linked list.
+  SpecificIns(root, 5, 12);                         // Insert a node at the fifth position.
+  display(root);                                    // Print the contents of the linked list.
+  SpecificIns(root, 12, 13);                        // Insert a node at the twelfth position.
+  display(root);                                    // Print the contents of the linked list.
+  Remove(root, 3);                                  // Remove the third node.
+  display(root);                                    // Print the contents of the linked list.
+  RemoveSpecific(root, 13);                         // Remove the thirteenth node.
+  display(root);                                    // Print the contents of the linked list.
+  cout << "Size = " << ListLength(root);            // Print the size of the linked list.
   return 0;
 }
